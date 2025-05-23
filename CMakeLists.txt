@@ -1,6 +1,7 @@
 idf_component_register(
     SRCS
         "wifi_configuration_ap.cc"
+        "wifi_configuration_ble.cc"
         "wifi_station.cc"
         "ssid_manager.cc"
         "dns_server.cc"
@@ -15,4 +16,5 @@ idf_component_register(
         "esp_wifi"
         "nvs_flash"
         "json"
+        "wifi_provisioning"
 )

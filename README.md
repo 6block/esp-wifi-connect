@@ -2,42 +2,11 @@
 
 This component helps with Wi-Fi connection for the device.
 
-It first tries to connect to a Wi-Fi network using the credentials stored in the flash. If this fails, it starts an access point and a web server to allow the user to connect to a Wi-Fi network.
+It provides the ability of Bluetooth distribution network and wifi network configuration and connection.
 
-The URL to access the web server is `http://192.168.4.1`.
+## Changelog: v2.4.2
+forked from https://github.com/6block/esp-wifi-connect, support ble Wi-Fi Configuration.
 
-### Screenshot: Wi-Fi Configuration
-
-<img src="assets/ap_v3.png" width="320" alt="Wi-Fi Configuration">
-
-### Screenshot: Advanced Options
-
-<img src="assets/ap_v3_advanced.png" width="320" alt="Advanced Configuration">
-
-## Changelog: v2.4.0
-
-- Add ja / zh-TW languages.
-- Add advanced tab.
-- Add "Connection: close" headers to save open sockets.
-
-## Changelog: v2.3.0
-
-- Add support for language request.
-
-## Changelog: v2.2.0
-
-- Add support for ESP32 SmartConfig(ESPTouch v2)
-
-## Changelog: v2.1.0
-
-- Improve Wi-Fi connection logic.
-
-## Changelog: v2.0.0
-
-- Add support for multiple Wi-Fi SSID management.
-- Auto switch to the best Wi-Fi network.
-- Captive portal for Wi-Fi configuration.
-- Support for multiple languages (English, Chinese).
 
 ## Configuration
 
@@ -62,10 +31,9 @@ ESP_ERROR_CHECK(ret);
 // Get the Wi-Fi configuration
 auto& ssid_list = SsidManager::GetInstance().GetSsidList();
 if (ssid_list.empty()) {
-    // Start the Wi-Fi configuration AP
-    auto& ap = WifiConfigurationAp::GetInstance();
-    ap.SetSsidPrefix("ESP32");
-    ap.Start();
+    // Start the Wi-Fi configuration BLE
+    auto& ble = WifiConfigurationBle::GetInstance();
+    ble.Start();
     return;
 }
 
