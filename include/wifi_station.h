@@ -8,6 +8,7 @@
 #include <esp_event.h>
 #include <esp_timer.h>
 #include <esp_wifi_types_generic.h>
+#include <esp_netif_types.h>
 
 struct WifiApRecord {
     std::string ssid;
@@ -42,6 +43,7 @@ private:
     WifiStation& operator=(const WifiStation&) = delete;
 
     EventGroupHandle_t event_group_;
+    esp_netif_t *default_event_loop_handler = nullptr;
     esp_timer_handle_t timer_handle_ = nullptr;
     esp_event_handler_instance_t instance_any_id_ = nullptr;
     esp_event_handler_instance_t instance_got_ip_ = nullptr;

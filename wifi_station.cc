@@ -57,7 +57,10 @@ void WifiStation::Stop() {
         esp_timer_delete(timer_handle_);
         timer_handle_ = nullptr;
     }
-    
+    if (default_event_loop_handler != nullptr) {
+        esp_netif_destroy_default_wifi(default_event_loop_handler);
+        default_event_loop_handler = nullptr;
+    }
     // 取消注册事件处理程序
     if (instance_any_id_ != nullptr) {
         ESP_ERROR_CHECK(esp_event_handler_instance_unregister(WIFI_EVENT, ESP_EVENT_ANY_ID, instance_any_id_));
@@ -101,7 +104,7 @@ void WifiStation::Start() {
                                                         &instance_got_ip_));
 
     // Create the default event loop
-    esp_netif_create_default_wifi_sta();
+    default_event_loop_handler = esp_netif_create_default_wifi_sta();
 
     // Initialize the WiFi stack in station mode
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
